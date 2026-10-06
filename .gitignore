@@ -20,3 +20,7 @@
 *.exe
 *.out
 /ray_tracer
+
+# Output images
+/images/ppm/
+/images/png/
