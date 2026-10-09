@@ -8,4 +8,6 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 add_executable(ray_tracer main.cpp
         ppm.cpp
         ppm.h
-        color.h)
+        color.h
+        vec3.cpp
+        camera.cpp)

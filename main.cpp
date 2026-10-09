@@ -6,6 +6,7 @@
 
 #include "color.h"
 #include "ppm.h"
+#include "vec3.h"
 
 int main(void) {
     const int image_width = 256;
