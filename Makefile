@@ -9,8 +9,8 @@ build:
 run:
 	./build/ray_tracer
 
-test:
-	python3 test/test.py
+test: build
+	cmake -E chdir build ctest --output-on-failure
 
 clean:
 	rm -rf build

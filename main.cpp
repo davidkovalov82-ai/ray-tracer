@@ -4,9 +4,28 @@
 #include <utility>
 #include <vector>
 
+#include "camera.h"
 #include "color.h"
 #include "ppm.h"
+#include "ray.h"
 #include "vec3.h"
+
+Color ray_color(const Ray& ray);
+
+Color ray_color(const Ray& ray) {
+    Vec3 unit_direction = normalize(ray.direction);
+    double t = (unit_direction.y + 1.0) / 2.0;
+
+    Color white{1.0, 1.0, 1.0};
+    Color blue{0.5, 0.7, 1.0};
+
+    Color color;
+    color.r = (1.0 - t) * white.r + t * blue.r;
+    color.g = (1.0 - t) * white.g + t * blue.g;
+    color.b = (1.0 - t) * white.b + t * blue.b;
+
+    return color;
+}
 
 int main(void) {
     const int image_width = 256;
@@ -15,19 +34,19 @@ int main(void) {
     std::vector<Color> pixels;
     pixels.reserve(image_height * image_width);
 
+    Camera camera;
+    Ray ray;
+    Color color;
     for (int j = 0; j < image_height; ++j) {
         for (int i = 0; i < image_width; ++i) {
             // вычисляем цвет и добавляем в pixels
-            double r = double(i) / (image_width - 1);
-            double g = double(j) / (image_height - 1);
-            double b = 0.0;
-            pixels.push_back(Color{r, g, b});
+            double u = double(i) / (image_width - 1);
+            double v = 1 - double(j) / (image_height - 1);
+            ray = camera.get_ray(u, v);
+            color = ray_color(ray);
+            pixels.push_back(color);
         }
     }
-
-    // Создаем директории, если их еще нет
-    std::filesystem::create_directories("images/ppm");
-    std::filesystem::create_directories("images/png");
 
     if (!save_ppm("images/ppm/image.ppm", image_width, image_height, pixels)) {
         std::cerr << "Error: could not save image.ppm\n";
