@@ -17,12 +17,16 @@ add_executable(ray_tracer
 # Включаем тестирование
 enable_testing()
 
-# Отдельная программа с тестами
+add_executable(test_vec3
+    tests/test_vec3.cpp
+    vec3.cpp
+)
+
 add_executable(test_ray
     tests/test_ray.cpp
     ray.cpp
     vec3.cpp
 )
 
-add_test(NAME ray_tests COMMAND test_ray)
 add_test(NAME vec3_tests COMMAND test_vec3)
+add_test(NAME ray_tests COMMAND test_ray)
