@@ -5,11 +5,23 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-add_executable(ray_tracer main.cpp
-        ppm.cpp
-        ppm.h
-        color.h
-        vec3.cpp
-        camera.cpp)
+add_executable(ray_tracer
+    main.cpp
+    ppm.cpp
+    ppm.h
+    color.h
+    vec3.cpp
+    camera.cpp
+)
 
+# Включаем тестирование
+enable_testing()
+
+# Отдельная программа с тестами
+add_executable(test_vec3
+    tests/test_vec3.cpp
+    vec3.cpp
+)
+
+# Регистрируем её запуск в CTest
 add_test(NAME vec3_tests COMMAND test_vec3)
