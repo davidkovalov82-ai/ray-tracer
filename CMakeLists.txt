@@ -11,3 +11,5 @@ add_executable(ray_tracer main.cpp
         color.h
         vec3.cpp
         camera.cpp)
+
+add_test(NAME vec3_tests COMMAND test_vec3)
